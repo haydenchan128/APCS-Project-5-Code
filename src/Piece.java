@@ -7,7 +7,7 @@ public class Piece {
     public Piece(int col, int color, Board board) { // constructor!
         this.column = col;
         this.color = color;
-        row = getRow();
+        this.row = findRow(column, board) ;
     }
 
     private int findRow(int column, Board board) { // given the state of the board, and a column, it returns the row
@@ -20,8 +20,8 @@ public class Piece {
                 return -1;
             }
             else{
-                for(int row = boardPieces.length-1; row <= 0; row--){
-                    if(boardPieces[row][column] == 0){
+                for(int row = boardPieces.length-1; row >= 0; row--){
+                    if(boardPieces[row][column-1] == 0 && boardPieces[row][column] == 0 && boardPieces[row][column+1] == 0){
                         return row;
                     }
                 }
@@ -32,7 +32,12 @@ public class Piece {
                 return -1;
             }
             else{
-                for(int row = boardPieces.length-1; row <= 0; row--){
+                for(int row = 0; row <= boardPieces.length-1; row++){
+                    if(boardPieces[row][column] != 0){
+                        return row-1;
+                    }
+                }
+                for(int row = boardPieces.length-1; row >= 0; row--){
                     if(boardPieces[row][column] == 0){
                         return row;
                     }
@@ -45,6 +50,9 @@ public class Piece {
         return column;
     }
     public int getRow() {
+        if(this instanceof MegaPiece){
+            return row-1;
+        }
         return row;
     }
     public int getColor() {

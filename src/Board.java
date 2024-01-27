@@ -8,7 +8,7 @@ public class Board {
         if (p instanceof MegaPiece) {
             for(int row = -1; row < 2; row++){
                 for(int col = -1; col < 2; col++){
-                    pieces[p.getRow() + row][p.getCol() + col] = p.getColor();
+                    pieces[p.getRow() - row][p.getCol() + col] = p.getColor();
                 }
             }
         }
@@ -57,18 +57,18 @@ public class Board {
     }
     public boolean checkForWin(int player) {
         //check 5 in a row
-        for(int row = 0; row < pieces.length-5; row++){
-            for(int col = 0; col < pieces[0].length; col++) {
-                if(pieces[row][col] == 1 || pieces[row][col] == 2){
+        for(int row = 0; row < pieces.length; row++){
+            for(int col = 0; col < pieces[0].length-4; col++) {
+                if(pieces[row][col] == player){
                     if (pieces[row][col] == pieces[row][col+1] && pieces[row][col+1] == pieces[row][col+2] && pieces[row][col+2] == pieces[row][col+3] && pieces[row][col+3] == pieces[row][col+4]) {
                         return true;
                     }
                 }
             }
         }
-        //check 5 in a row
-        for(int col = 0; col < pieces[0].length-5; col++){
-            for(int row = 0; row < pieces.length; row++) {
+        //check 5 in a column
+        for(int col = 0; col < pieces[0].length; col++){
+            for(int row = 0; row < pieces.length-4; row++) {
                 if(pieces[row][col] == 1 || pieces[row][col] == 2){
                     if (pieces[row][col] == pieces[row+1][col] && pieces[row+1][col] == pieces[row+2][col] && pieces[row+2][col] == pieces[row+3][col] && pieces[row+3][col] == pieces[row+4][col]) {
                         return true;
@@ -77,8 +77,8 @@ public class Board {
             }
         }
         //check 5 across down to the right
-        for(int col = 0; col < pieces[0].length-5; col++){
-            for(int row = 0; row < pieces.length; row++) {
+        for(int col = 0; col < pieces[0].length-4; col++){
+            for(int row = 0; row < pieces.length-4; row++) {
                 if(pieces[row][col] == 1 || pieces[row][col] == 2) {
                     if (pieces[row][col] == pieces[row + 1][col + 1] && pieces[row + 1][col + 1] == pieces[row + 2][col + 2] && pieces[row + 2][col + 2] == pieces[row + 3][col + 3] && pieces[row + 3][col + 3] == pieces[row + 4][col + 4]) {
                         return true;
@@ -88,7 +88,7 @@ public class Board {
         }
         //check 5 across down to the left
         for(int col = 5; col < pieces[0].length; col++){
-            for(int row = 0; row < pieces.length; row++) {
+            for(int row = 0; row < pieces.length-4; row++) {
                 if(pieces[row][col] == 1 || pieces[row][col] == 2){
                     if (pieces[row][col] == pieces[row+1][col-1] && pieces[row+1][col-1] == pieces[row+2][col-2] && pieces[row+2][col-2] == pieces[row+3][col-3] && pieces[row+3][col-3] == pieces[row+4][col-4]) {
                         return true;
