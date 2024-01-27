@@ -13,11 +13,57 @@ public class Main {
         remainingMegaPiece[0] = 1;
         remainingMegaPiece[1] = 1;
 
+        int column;
+        String answer;
         while (true) {
             board.displayAll();
             System.out.println("Player: " + player + ":");
-
-            // Stuff should go here, probably
+            if (remainingMegaPiece[player - 1] == 1) {
+                System.out.println("Use MegaPiece? (Y/N)?");
+                answer = input.nextLine();
+                if (answer.equals("Y")) {
+                    System.out.println("Enter the column you would like to place your MegaPiece at.");
+                    column = input.nextInt();
+                    column = column - 1;
+                    if (column > 0 && column < board.getBoardPieces()[0].length - 1) {
+                        MegaPiece tempPiece = new MegaPiece(column, player, board);
+                        if (tempPiece.getRow() > -1) {
+                            board.placePiece(tempPiece);
+                            remainingMegaPiece[player - 1] = 0;
+                        } else {
+                            System.out.println("Not a valid placement.");
+                        }
+                    } else {
+                        System.out.println("Not a valid placement.");
+                    }
+                } else if (answer.equals("N")) {
+                    System.out.println("Enter the column you would like to place your Piece at.");
+                    column = input.nextInt();
+                    column = column - 1;
+                    if (column >= 0 && column <= board.getBoardPieces()[0].length - 1) {
+                        Piece tempPiece = new Piece(column, player, board);
+                        if (tempPiece.getRow() > -1) {
+                            board.placePiece(tempPiece);
+                            remainingMegaPiece[player - 1] = 0;
+                        }
+                    }
+                }
+            }
+            else{
+                System.out.println("Enter the column you would like to place your Piece at.");
+                column = input.nextInt();
+                column = column-1;
+                if (column >= 0 && column <= board.getBoardPieces()[0].length-1) {
+                    Piece tempPiece = new Piece(column, player, board);
+                    if (tempPiece.getRow() > -1) {
+                        board.placePiece(tempPiece);
+                    } else {
+                        System.out.println("Not a valid placement.");
+                    }
+                } else {
+                    System.out.println("Not a valid placement.");
+                }
+            }
 
             if (board.checkForWin(player)) {
                 System.out.println("player: " + player + " has won!");
@@ -26,8 +72,5 @@ public class Main {
             }
             player = player % 2 + 1;
         }
-
-
-
     }
 }
