@@ -24,6 +24,8 @@ public class Main {
                 answer = input.nextLine();
                 answer.toUpperCase();
                 while(!(answer.equals("Y") || answer.equals("N"))){
+                    System.out.println("Not a valid answer.");
+                    System.out.println("Use MegaPiece? (Y/N)?");
                     answer = input.nextLine();
                 }
                 if (answer.equals("Y")) {
